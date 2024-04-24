@@ -37,25 +37,26 @@ const URLnofinalSlashHTTPmultipleQueryParameter =
 
 test("Retain the query paramethers", () => {
   expect(normalizeURL(URLnofinalSlashHTTPqueryParameter)).toBe(
-    "boot.dev/path?reversed=true"
+    "boot.dev.blog/path?reversed=true"
   );
 });
 
 test("Retain the query paramethers final /", () => {
-  expect(normalizeURL(URLfinalSlashHTTPqueryParameter)).toBe(
-    "boot.dev/path?reversed=true"
+  expect(normalizeURL(URLfinalSlashHTTPqueryParamether)).toBe(
+    "boot.dev.blog/path?reversed=true"
   );
 });
 
 test("Retain the query paramethers multiple query", () => {
   expect(normalizeURL(URLnofinalSlashHTTPmultipleQueryParameter)).toBe(
-    "boot.dev/path?reversed=true&search=boot.dev"
+    "boot.dev.blog/path?reversed=true&search=boot.dev"
   );
 });
 
-// test with port
+// tests with port
 
 const URLwithDefaultPortHTTP = "http://boot.dev.blog:80/path";
+const URLwithDefaultPortHTTPS = "https://boot.dev.blog:443/path";
 const URLwithNonDefaultPort = "http://boot.dev.blog:8080/path";
 
 test("Normalize URL by removing default HTTP port", () => {
@@ -64,4 +65,8 @@ test("Normalize URL by removing default HTTP port", () => {
 
 test("Retain non-default port in URL", () => {
   expect(normalizeURL(URLwithNonDefaultPort)).toBe("boot.dev.blog:8080/path");
+});
+
+test("Normalize URL by removing default HTTPS port", () => {
+  expect(normalizeURL(URLwithDefaultPortHTTPS)).toBe("boot.dev.blog/path");
 });
