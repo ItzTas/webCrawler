@@ -1,5 +1,5 @@
 const { test, expect } = require("@jest/globals");
-const { normalizeURL } = require("./craw.js");
+const { normalizeURL, getURLsFromHTML } = require("./craw.js");
 
 // tests with no query paramethers
 const URLnofinalSlashHTTP = "http://boot.dev.blog/path";
@@ -69,4 +69,31 @@ test("Retain non-default port in URL", () => {
 
 test("Normalize URL by removing default HTTPS port", () => {
   expect(normalizeURL(URLwithDefaultPortHTTPS)).toBe("boot.dev.blog/path");
+});
+
+// getURLsFromHTML tests
+
+test("It extracts URLs from a simple html page", () => {
+  const htmlpage1 = '<div><a href="/path"></a></div>';
+  const baseurl = "https://base.url";
+  const hrefList = getURLsFromHTML(htmlpage1, baseurl);
+  expect(hrefList).toEqual(["https://base.url/path"]);
+});
+
+test("It extracts URLs from a more complex html page", () => {
+  const htmlpage1 =
+    '<div><a href="/path"></a></div><a href="/otherPath"><p></p></a>';
+  const baseurl = "https://base.url";
+  const hrefList = getURLsFromHTML(htmlpage1, baseurl);
+  expect(hrefList).toEqual([
+    "https://base.url/path",
+    "https://base.url/otherPath",
+  ]);
+});
+
+test("It extracts a full path URL from a simple html page", () => {
+  const htmlpage1 = '<div><a href="https://base.url/path"></a></div>';
+  const baseurl = "https://base.url";
+  const hrefList = getURLsFromHTML(htmlpage1, baseurl);
+  expect(hrefList).toEqual(["https://base.url/path"]);
 });
