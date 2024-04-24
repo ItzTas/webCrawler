@@ -1,0 +1,12 @@
+{
+  "name": "webcrawler",
+  "version": "1.0.0",
+  "description": "## this is a guided project from boot.dev site",
+  "main": "main.js",
+  "scripts": {
+    "start": "./main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "talinux",
+  "license": "ISC"
+}
