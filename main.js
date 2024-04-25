@@ -1,19 +1,23 @@
 #!/usr/bin/env node
+const { crawlPage } = require("./craw");
 
-function processArguments() {
+async function main() {
   if (process.argv.length < 3) {
-    console.log("The arguments cannot be less than 1");
-  } else if (process.argv.length > 3) {
-    console.log("The arguments cannot be greater than 1");
-  } else {
-    console.log(
-      `The crawler is starting with the ${process.argv[2]} as the base url`
-    );
+    console.log("no website provided");
+    return;
   }
-}
+  if (process.argv.length > 3) {
+    console.log("too many arguments provided");
+    return;
+  }
 
-function main() {
-  processArguments();
+  const baseURL = process.argv[2];
+
+  console.log(`starting crawl of: ${baseURL}...`);
+
+  const pages = await crawlPage(baseURL);
+
+  console.log(pages);
 }
 
 main();
