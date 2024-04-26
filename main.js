@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 const { crawlPage } = require("./craw");
+const { printReports } = require("./report")
 
 async function main() {
   if (process.argv.length < 3) {
@@ -17,7 +18,9 @@ async function main() {
 
   const pages = await crawlPage(baseURL);
 
-  console.log(pages);
+  if (pages) {
+    printReports(pages);
+  }
 }
 
 main();

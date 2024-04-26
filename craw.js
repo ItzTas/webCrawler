@@ -49,8 +49,6 @@ async function crawlPage(baseURL, currentURL = baseURL, pages = {}) {
     let currentURLobj = new URL(currentURL);
     let normCurrent = normalizeURL(currentURL);
 
-    console.log(currentURL);
-
     if (baseurlobj.hostname !== currentURLobj.hostname) {
       return pages;
     }

@@ -1,5 +1,6 @@
 const { test, expect } = require("@jest/globals");
 const { normalizeURL, getURLsFromHTML } = require("./craw.js");
+const { sortObjectIntoList } = require("./report.js");
 
 // tests with no query paramethers
 const URLnofinalSlashHTTP = "http://boot.dev.blog/path";
@@ -37,19 +38,19 @@ const URLnofinalSlashHTTPmultipleQueryParameter =
 
 test("Retain the query paramethers", () => {
   expect(normalizeURL(URLnofinalSlashHTTPqueryParameter)).toBe(
-    "boot.dev.blog/path?reversed=true"
+    "boot.dev.blog/path?reversed=true",
   );
 });
 
 test("Retain the query paramethers final /", () => {
   expect(normalizeURL(URLfinalSlashHTTPqueryParamether)).toBe(
-    "boot.dev.blog/path?reversed=true"
+    "boot.dev.blog/path?reversed=true",
   );
 });
 
 test("Retain the query paramethers multiple query", () => {
   expect(normalizeURL(URLnofinalSlashHTTPmultipleQueryParameter)).toBe(
-    "boot.dev.blog/path?reversed=true&search=boot.dev"
+    "boot.dev.blog/path?reversed=true&search=boot.dev",
   );
 });
 
@@ -108,4 +109,18 @@ test("getURLsFromHTML both", () => {
     "https://other.com/path/one",
   ];
   expect(actual).toEqual(expected);
+});
+
+// sort object into list test
+
+test("Test the sorting", () => {
+  const object = { value: 1, value2: 2, value79: 79, value10: 10 };
+  const sorted = sortObjectIntoList(object);
+  const expected = [
+    ["value79", 79],
+    ["value10", 10],
+    ["value2", 2],
+    ["value", 1],
+  ];
+  expect(sorted).toEqual(expected);
 });
